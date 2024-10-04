@@ -2,9 +2,9 @@
 title: "My title"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+  - Amy Jin
+  - Maggie Zhang
+thanks: "Code and data are available at: [https://github.com/aj3616/Forcasting-US-Elections](https://github.com/aj3616/Forcasting-US-Elections)."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -22,7 +22,6 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-
 # Introduction
 
 Overview paragraph
@@ -35,11 +34,6 @@ Why it matters paragraph
 
 Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data....
 
-
-
-
-
-
 # Data {#sec-data}
 
 ## Overview
@@ -48,15 +42,24 @@ We use the statistical programming language R [@citeR].... Our data [@shelter]..
 
 Overview text
 
+A sense of the dataset should be communicated to the reader. The broader context of the dataset should be discussed. Explain if there were similar datasets that could have been used and why they were not.
+
+## Variables
+
+All variables should be thoroughly examined and explained.\
+If variables were constructed then this should be mentioned, and high-level cleaning aspects of note should be mentioned, but this section should focus on the destination, not the journey. It is important to understand what the variables look like by including graphs, and possibly tables, of all observations, along with discussion of those graphs and the other features of these data.
+
+## Summary statistics & Relationships
+
+Summary statistics should also be included, and well as any relationships between the variables. If this becomes too detailed, then appendices could be used. Basically, for every variable in your dataset that is of interest to your paper there needs to be graphs and explanation and maybe tables
+
 ## Measurement
-	
-Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
+
+Some paragraphs about how we go from a phenomena in the world to an entry in the dataset. A thorough discussion of measurement, relating to the dataset, is provided in the data section. Please ensure that you explain how we went from some phenomena in the world that happened to an entry in the dataset that you are interested in.
 
 ## Outcome variables
 
 Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular.
-
-
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
@@ -95,7 +98,7 @@ analysis_data |>
        y = "Wing length (mm)")
 ```
 
-Talk way more about it. 
+Talk way more about it.
 
 ## Predictor variables
 
@@ -103,23 +106,40 @@ Add graphs, tables and text.
 
 Use sub-sub-headings for each outcome variable and feel free to combine a few into one if they go together naturally.
 
-
-
-
-
-
-
-
 # Model
 
 The goal of our modelling strategy is twofold. Firstly,...
 
 Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
 
+The model should be nicely written out, well-explained, justified, and appropriate. 
+
+Detail the statistical model used, defining and explaining each aspect and its importance, and ensure that variables are well-defined and correspond with those discussed in the data section. 
+
+The model should have an appropriate balance of complexity—neither overly simplistic nor unnecessarily complicated—and be justified as suitable for the situation. 
+
+## Modeling decisions
+Explain how decisions made in modeling reflect the aspects discussed in the data section, including why specific features are included (e.g., why use age rather than age-groups, treating province effects as levels, categorizing gender, etc?). 
+
+## Mathematical notations
+Present the model using appropriate mathematical notation supplemented with plain English explanations, defining every component. If applicable, define sensible priors for Bayesian models. 
+
+## Assumptions, limitations, circumstances
+Clearly discuss the underlying assumptions, potential limitations, and circumstances where the model may not be appropriate. 
+
+## Software & model validation
+Mention the software used to implement the model, and provide evidence of model validation and checking—such as out-of-sample testing, RMSE calculations, test/training splits, or sensitivity analyses—while addressing model convergence, diagnostics, and any alternative models or variants considered, 
+
+## Strenth and weeknesses and final choice
+including their strengths and weaknesses and the rationale for the final model choice.
+
+
+
 ## Model set-up
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.
 
+```{=tex}
 \begin{align} 
 y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
 \mu_i &= \alpha + \beta_i + \gamma_i\\
@@ -128,9 +148,8 @@ y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
 \gamma &\sim \mbox{Normal}(0, 2.5) \\
 \sigma &\sim \mbox{Exponential}(1)
 \end{align}
-
+```
 We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
 
 ### Model justification
 
@@ -138,10 +157,18 @@ We expect a positive relationship between the size of the wings and time spent a
 
 We can use maths by including latex between dollar signs, for instance $\theta$.
 
-
 # Results
 
 Our results are summarized in @tbl-modelresults.
+
+Results will likely require summary statistics, tables, graphs, images, and possibly statistical analysis or maps. 
+There should also be text associated with all these aspects. 
+
+Show the reader the results by plotting them where possible. Talk about them. Explain them. That said, this section should strictly relay results. 
+
+Regression tables must not contain stars.
+
+
 
 ```{r}
 #| echo: false
@@ -171,22 +198,20 @@ modelsummary::modelsummary(
 )
 ```
 
-
-
-
 # Discussion
 
-## First discussion point {#sec-first-point}
+## What is done in this paper? {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this.
 
-## Second discussion point
+## What is something that we learn about the world?
 
 Please don't use these as sub-heading labels - change them to be what your point actually is.
 
-## Third discussion point
+## What is another thing that we learn about the world? 
 
 ## Weaknesses and next steps
+What are some weaknesses of what was done? What is left to learn or how should we proceed in the future?
 
 Weaknesses and next steps should also be included.
 
@@ -194,8 +219,9 @@ Weaknesses and next steps should also be included.
 
 \appendix
 
-# Appendix {-}
+# Appendix {.unnumbered}
 
+The deep dive provides a thorough understanding of how something goes from being a person's opinion to part of a result for this pollster. Please provide a thorough overview and evaluation of the pollster’s methodology, highlighting both its strengths and limitations.
 
 # Additional data details
 
@@ -205,7 +231,7 @@ Weaknesses and next steps should also be included.
 
 In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows...
 
 ```{r}
 #| eval: true
@@ -249,11 +275,6 @@ plot(first_model, "trace")
 plot(first_model, "rhat")
 ```
 
-
-
 \newpage
 
-
 # References
-
-

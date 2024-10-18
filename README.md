@@ -21,7 +21,7 @@ The repo is structured as:
 ### Prerequisites
 R and Required libraries (see requirements.txt for equivalent R libraries):
 tidyverse, glmnet, ggplot2 for R
-###Setup
+### Setup
 Clone the repository:
 ```
 git https://github.com/aj3616/Forcasting-US-Elections

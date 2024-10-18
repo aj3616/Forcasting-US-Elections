@@ -1,8 +1,8 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 26 September 2024 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Tests simulation and analysis data
+# Author: Amy Jin
+# Date: 18 October 2024
+# Contact: amyzh.jin@mail.utoronto,ca
 # License: MIT
 # Pre-requisites: [...UPDATE THIS...]
 # Any other information needed? [...UPDATE THIS...]
@@ -16,7 +16,51 @@ data <- read_csv("data/02-analysis_data/analysis_data.csv")
 
 
 #### Test data ####
+# Test Case 1: Check for NAs in each variable
+na_counts <- sample_data %>%
+  summarise(across(everything(), ~ sum(is.na(.))))
+
+print("NA counts per variable:")
+print(na_counts)
+
+# Test Case 2: Check if start_date is earlier than end_date
+date_check <- sample_data %>%
+  mutate(valid_date = start_date <= end_date) %>%
+  summarise(all_dates_valid = all(valid_date))
+
+print("Are all start dates earlier than or equal to end dates?")
+print(date_check)
+
+# Test Case 3: Check if sample_size values are positive
+sample_size_check <- sample_data %>%
+  filter(!is.na(sample_size)) %>%
+  summarise(all_sample_sizes_positive = all(sample_size > 0))
+
+print("Are all sample sizes positive?")
+print(sample_size_check)
+
+# Test Case 4: Check if transparency_score is between 0 and 10
+transparency_check <- sample_data %>%
+  filter(!is.na(transparency_score)) %>%
+  summarise(valid_transparency_scores = all(transparency_score >= 0 & transparency_score <= 10))
+
+print("Are all transparency scores between 0 and 10?")
+print(transparency_check)
+
+# Test Case 5: Check if cycle is 2024 for all entries
+cycle_check <- sample_data %>%
+  summarise(all_cycles_2024 = all(cycle == 2024))
+
+print("Is the cycle 2024 for all entries?")
+print(cycle_check)
+
+
+
+
+
 # Test that the dataset has 151 rows - there are 151 divisions in Australia
+
+
 test_that("dataset has 151 rows", {
   expect_equal(nrow(analysis_data), 151)
 })

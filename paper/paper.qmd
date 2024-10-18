@@ -4,6 +4,7 @@ subtitle: "My subtitle if needed"
 author: 
   - Amy Jin
   - Maggie Zhang
+  - Maryam Ansari
 thanks: "Code and data are available at: [https://github.com/aj3616/Forcasting-US-Elections](https://github.com/aj3616/Forcasting-US-Elections)."
 date: today
 date-format: long

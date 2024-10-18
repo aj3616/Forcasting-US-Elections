@@ -1,8 +1,8 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw US election data
+# Author: Amy Jin
+# Date: 18 October 2024
+# Contact: amyzh.jin@mail.utoronto,ca
 # License: MIT
 # Pre-requisites: [...UPDATE THIS...]
 # Any other information needed? [...UPDATE THIS...]
@@ -11,7 +11,21 @@
 library(tidyverse)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+raw_data <- read_csv("data/01-raw_data/president_polls.csv")
+
+## filter out variables of interests
+filtered_data <- raw_data %>%
+  select(pollster_id, pollster, state,
+         start_date, end_date, sample_size, population, race_id,
+         cycle, election_date, candidate_id)
+
+# TODO: discuss whether to keep NA of states and sample size
+na_counts <- filtered_data %>%
+  summarise(across(everything(), ~ sum(is.na(.))))
+
+#### Save data ####
+write_csv(filtered_data, "data/02-analysis_data/analysis_data.csv")
+
 
 cleaned_data <-
   raw_data |>
